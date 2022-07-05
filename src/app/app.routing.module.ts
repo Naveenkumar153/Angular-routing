@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-
+import { ErrorCompnentComponent } from './error-compnent/error-compnent.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { ServersComponent } from './servers/servers.component';
@@ -23,11 +23,12 @@ const routes: Routes = [
       canActivateChild:[AuthGuard],
       component:ServersComponent,
       children:[
-       
-      { path:':id', component:ServerComponent, },
-      { path:':id/edit', component:EditServerComponent,canDeactivate:[CanDeactieGuard]},
-    ]},
-    { path:'**',component:PageNotFoundComponent },
+        { path:':id', component:ServerComponent, },
+        { path:':id/edit', component:EditServerComponent,canDeactivate:[CanDeactieGuard]},
+      ]
+    },
+    // { path:'**',component:PageNotFoundComponent },
+    { path:'**',component:ErrorCompnentComponent,data:{message:'page not found :(' }},
 ]
 
 @NgModule({
@@ -42,7 +43,7 @@ const routes: Routes = [
     ],
     imports:[
         CommonModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes,{useHash:true}),
     ],
     exports:[RouterModule]
 
